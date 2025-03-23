@@ -1,0 +1,49 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ['*']
+
+jobs:
+  what-changed:
+    runs-on: ubuntu-latest
+    outputs:
+      workspaces: ${{ steps.list.outputs.workspaces }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - id: list
+        run: |
+          {
+            echo 'workspaces<<EOF'
+            jq --slurp <<< $(yarn workspaces list --json --since --no-private)
+            echo EOF
+          } >> $GITHUB_OUTPUT
+
+  workspace:
+    needs: what-changed
+    runs-on: ubuntu-latest
+    if: ${{ fromJson(needs.what-changed.outputs.workspaces)[0] != null }}
+    strategy:
+      matrix:
+        workspace: ${{ fromJson(needs.what-changed.outputs.workspaces).*.name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - run: yarn workspaces focus hono-middleware ${{ matrix.workspace }}
+      - run: yarn workspace ${{ matrix.workspace }} build
+      - run: yarn test --coverage --project ${{ matrix.workspace }}
+      - uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true
+          directory: ./coverage
+          flags: ${{ matrix.workspace }}
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
