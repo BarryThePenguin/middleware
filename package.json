@@ -14,6 +14,7 @@
     "typecheck": "yarn tsc --build",
     "typecheck:clean": "yarn tsc --build --clean",
     "typecheck:watch": "yarn tsc --build --watch",
+    "docs": "typedoc",
     "test": "vitest",
     "lint": "eslint 'packages/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix 'packages/**/*.{ts,tsx}'",
@@ -42,6 +43,9 @@
     "pkg-pr-new": "^0.0.51",
     "prettier": "^3.5.3",
     "tsup": "^8.4.0",
+    "typedoc": "^0.28.5",
+    "typedoc-plugin-markdown": "^4.7.0",
+    "typedoc-plugin-mdn-links": "^5.0.2",
     "typescript": "^5.8.2",
     "vitest": "^3.2.4"
   },

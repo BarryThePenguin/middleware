@@ -77,6 +77,9 @@ interface SessionStore<Data> extends Session<Data> {
 
 type SessionEvent<Data> = (data: Data | null) => void
 
+/**
+ * Session lifecycle events.
+ */
 export interface SessionEvents<Data> {
   onCreate?: SessionEvent<Data> | undefined
   onDelete?: SessionEvent<Data> | undefined

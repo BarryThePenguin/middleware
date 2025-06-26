@@ -1,0 +1,14 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "hideBreadcrumbs": true,
+  "disableSources": true,
+  "entryPoints": ["packages/session", "packages/ua-blocker"],
+  "entryPointStrategy": "packages",
+  "hidePageHeader": true,
+  "includeVersion": false,
+  "name": "Hono Middleware",
+  "parametersFormat": "table",
+  "plugin": ["typedoc-plugin-markdown", "typedoc-plugin-mdn-links"],
+  "readme": "none",
+  "sort": ["static-first", "required-first", "alphabetical"]
+}
