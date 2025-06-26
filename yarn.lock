@@ -2096,6 +2096,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@hono/auth@workspace:packages/auth":
+  version: 0.0.0-use.local
+  resolution: "@hono/auth@workspace:packages/auth"
+  dependencies:
+    "@arethetypeswrong/cli": "npm:^0.17.4"
+    "@hono/session": "workspace:^"
+    jose: "npm:^6.0.11"
+    openid-client: "npm:^6.6.1"
+    p-lazy: "npm:^5.0.0"
+    publint: "npm:^0.3.9"
+    tsup: "npm:^8.4.0"
+    typescript: "npm:^5.8.2"
+    unstorage: "npm:^1.16.0"
+    vitest: "npm:^3.2.4"
+  peerDependencies:
+    hono: "*"
+  languageName: unknown
+  linkType: soft
+
 "@hono/bun-compress@workspace:packages/bun-compress":
   version: 0.0.0-use.local
   resolution: "@hono/bun-compress@workspace:packages/bun-compress"
@@ -2511,7 +2530,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hono/session@workspace:packages/session":
+"@hono/session@workspace:^, @hono/session@workspace:packages/session":
   version: 0.0.0-use.local
   resolution: "@hono/session@workspace:packages/session"
   dependencies:
@@ -4578,15 +4597,6 @@ __metadata:
   version: 12.20.55
   resolution: "@types/node@npm:12.20.55"
   checksum: 10c0/3b190bb0410047d489c49bbaab592d2e6630de6a50f00ba3d7d513d59401d279972a8f5a598b5bb8ddc1702f8a2f4ec57a65d93852f9c329639738e7053637d1
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^20.17.28":
-  version: 20.17.28
-  resolution: "@types/node@npm:20.17.28"
-  dependencies:
-    undici-types: "npm:~6.19.2"
-  checksum: 10c0/d77214e54d8f303d0a79fc896f8c4267b057fbc774448f6d09d24874d521293cd6036292e79b2791a6aef18895bd80dc58c1853bd8a0cf261b08500083f07273
   languageName: node
   linkType: hard
 
@@ -9287,7 +9297,7 @@ __metadata:
     "@hono/eslint-config": "workspace:*"
     "@ryoppippi/unplugin-typia": "npm:^1.2.0"
     "@types/bun": "npm:^1.0.0"
-    "@types/node": "npm:^20.17.28"
+    "@types/node": "npm:^22.15.15"
     "@types/ws": "npm:^8.18.0"
     "@vitest/coverage-istanbul": "npm:^3.2.4"
     eslint: "npm:^9.23.0"
@@ -11908,6 +11918,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"oauth4webapi@npm:^3.5.3":
+  version: 3.5.3
+  resolution: "oauth4webapi@npm:3.5.3"
+  checksum: 10c0/3c8b6854c68067481b4934386354e39824201dc4eade50b02448330a0eca3f4a68038548861e2a193eb12c55d934097c8c4b7e556036813da60646e556f61056
+  languageName: node
+  linkType: hard
+
 "object-assign@npm:^4, object-assign@npm:^4.0.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -12049,6 +12066,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"openid-client@npm:^6.6.1":
+  version: 6.6.1
+  resolution: "openid-client@npm:6.6.1"
+  dependencies:
+    jose: "npm:^6.0.11"
+    oauth4webapi: "npm:^3.5.3"
+  checksum: 10c0/64cab53a604b90e08cbf5aa47e26a553073970e1a3a7e124e6bf87aa33f1f826bf3dc0fd860a6edd9fc2ccd920e790099a8d1cf4b894996c951feaab8c520b1e
+  languageName: node
+  linkType: hard
+
 "optionator@npm:^0.9.3":
   version: 0.9.4
   resolution: "optionator@npm:0.9.4"
@@ -12114,6 +12141,13 @@ __metadata:
   dependencies:
     p-map: "npm:^2.0.0"
   checksum: 10c0/5ac34b74b3b691c04212d5dd2319ed484f591c557a850a3ffc93a08cb38c4f5540be059c6b10a185773c479ca583a91ea00c7d6c9958c815e6b74d052f356645
+  languageName: node
+  linkType: hard
+
+"p-lazy@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "p-lazy@npm:5.0.0"
+  checksum: 10c0/8788687fc3da0812549c2eefa22aa2a232fffdf350d6aa05a5b35115fa7c52b6fd3a8ebbbbb7483a77716e87abe363d28ae08d56050e4f466a0c963aa5e146fb
   languageName: node
   linkType: hard
 
@@ -15420,13 +15454,6 @@ __metadata:
   version: 0.1.3
   resolution: "uncrypto@npm:0.1.3"
   checksum: 10c0/74a29afefd76d5b77bedc983559ceb33f5bbc8dada84ff33755d1e3355da55a4e03a10e7ce717918c436b4dfafde1782e799ebaf2aadd775612b49f7b5b2998e
-  languageName: node
-  linkType: hard
-
-"undici-types@npm:~6.19.2":
-  version: 6.19.8
-  resolution: "undici-types@npm:6.19.8"
-  checksum: 10c0/078afa5990fba110f6824823ace86073b4638f1d5112ee26e790155f481f2a868cc3e0615505b6f4282bdf74a3d8caad715fd809e870c2bb0704e3ea6082f344
   languageName: node
   linkType: hard
 

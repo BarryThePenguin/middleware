@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES2022",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022",
+      "ESNext.Array",
+      "ESNext.Collection",
+      "ESNext.Iterator"
+    ],
     "module": "esnext",
     "composite": true,
     "declaration": true,

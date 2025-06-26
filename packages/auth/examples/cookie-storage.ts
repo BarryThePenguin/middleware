@@ -1,0 +1,137 @@
+import type { SessionEnv } from '@hono/session'
+import { useSession, useSessionStorage } from '@hono/session'
+import * as cookies from '@hono/session/cookies'
+import { Hono } from 'hono'
+import { deleteCookie, getCookie, setCookie } from 'hono/cookie'
+import * as jose from 'jose'
+import * as auth from '../src'
+import { OidcProvider } from '../src/providers/oidc'
+
+export const issuerUrl = new URL('https://cookie-storage.example.com')
+
+export const clientId = 'cookie-storage-client-id'
+
+export const secret = cookies.generateId(16)
+
+export const encryptionKey = await cookies.createEncryptionKey(secret)
+
+const encoder = new TextEncoder()
+
+const decoder = new TextDecoder()
+
+export function encryptToken(value: string): Promise<string> {
+  return new jose.CompactEncrypt(encoder.encode(value))
+    .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
+    .encrypt(encryptionKey)
+}
+
+export async function decryptToken(jwe: string) {
+  const { plaintext } = await jose.compactDecrypt(jwe, encryptionKey)
+  return decoder.decode(plaintext)
+}
+
+type AuthEnv = auth.AuthEnv & SessionEnv
+
+export const app = new Hono<AuthEnv>().use(
+  useSessionStorage((c) => {
+    const accessToken = tokenCookie('access_token')
+    const idToken = tokenCookie('id_token')
+    const refreshToken = tokenCookie('refresh_token')
+
+    return {
+      delete() {
+        accessToken.delete()
+        idToken.delete()
+        refreshToken.delete()
+      },
+      async get() {
+        const [access_token, id_token, refresh_token] = await Promise.all([
+          accessToken.get(),
+          idToken.get(),
+          refreshToken.get(),
+        ])
+        let tokens = null
+
+        if (access_token) {
+          tokens = { access_token, id_token, refresh_token, token_type: 'bearer' }
+        }
+
+        return { tokens }
+      },
+      set(_sid, value) {
+        if (value.tokens) {
+          const { access_token, id_token, refresh_token } = value.tokens
+          accessToken.set(access_token)
+
+          if (id_token) {
+            idToken.set(id_token)
+          }
+
+          if (refresh_token) {
+            refreshToken.set(refresh_token)
+          }
+        }
+      },
+    }
+
+    function tokenCookie(name: string) {
+      return {
+        async get() {
+          const jwe = getCookie(c, name)
+
+          if (jwe) {
+            return decryptToken(jwe)
+          }
+
+          return
+        },
+        async set(value: string) {
+          const jwe = await encryptToken(value)
+          setCookie(c, name, jwe)
+        },
+        delete() {
+          deleteCookie(c, name)
+        },
+      }
+    }
+  }),
+  useSession({
+    duration: {
+      absolute: 604_800, // 7 days in seconds
+      inactivity: 86_400, // 1 day in seconds
+    },
+    secret,
+  }),
+  auth.middleware({
+    provider: OidcProvider({
+      clientId,
+      clientSecret: secret,
+      issuer: issuerUrl,
+      scope: ['openid', 'profile'],
+    }),
+    secret: encryptionKey,
+  })
+)
+
+app.get('/signin', async (c) => {
+  const { redirectTo } = await c.var.auth.handleSignIn('http://localhost/callback', 'code')
+  return c.redirect(redirectTo)
+})
+
+app.get('/callback', async (c) => {
+  const { tokens } = await c.var.auth.handleCallback()
+  await c.var.session.update({ tokens })
+  return c.redirect('/')
+})
+
+app.get('/session', auth.authenticate({ redirectUri: '/callback' }), async (c) =>
+  c.json(c.var.session.data)
+)
+
+app.post('/signout', async (c) => {
+  const session = await c.var.session.get()
+  const idToken = session?.tokens?.id_token
+  c.var.session.delete()
+  const { redirectTo } = await c.var.auth.handleSignOut({ idToken })
+  return c.redirect(redirectTo)
+})
