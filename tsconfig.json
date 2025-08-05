@@ -6,6 +6,7 @@
   "references": [
     { "path": "packages/ajv-validator" },
     { "path": "packages/arktype-validator" },
+    { "path": "packages/auth" },
     { "path": "packages/auth-js" },
     { "path": "packages/bun-compress" },
     { "path": "packages/bun-transpiler" },
