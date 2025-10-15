@@ -1,0 +1,27 @@
+{
+  "name": "@hono/auth",
+  "version": "0.0.0",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./providers": "./src/providers/index.ts",
+    "./providers/oidc": "./src/providers/oidc.ts",
+    "./testing": "./src/helper/testing/index.ts"
+  },
+  "imports": {
+    "@hono/session": "jsr:@hono/session@^0.1.0",
+    "hono": "jsr:@hono/hono@^4.8.3",
+    "jose": "jsr:@panva/jose@^6.0.11",
+    "openid-client": "jsr:@panva/openid-client@^6.6.1"
+  },
+  "publish": {
+    "include": [
+      "deno.json",
+      "README.md",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.test.ts"
+    ]
+  }
+}

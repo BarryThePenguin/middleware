@@ -58,7 +58,7 @@ export interface TestSession extends TestSessionInit {
   getSetCookie: <Value>(
     res: Response,
     nameOrPrefix: string,
-    decrypt: (value: string) => Promise<Value>
+    decrypt?: (value: string) => Promise<Value>
   ) => Promise<GetSetCookieResult<Value> | undefined>
   /**
    * Create an encryption key from the secret,
@@ -116,7 +116,7 @@ export function createTestSession(init: Partial<TestSessionInit> = {}): TestSess
   async function getSetCookie<Value>(
     res: Response,
     nameOrPrefix: string,
-    decryptFn: (value: string) => Promise<Value>
+    decryptFn?: (value: string) => Promise<Value>
   ): Promise<GetSetCookieResult<Value> | undefined> {
     let found
 
@@ -135,7 +135,7 @@ export function createTestSession(init: Partial<TestSessionInit> = {}): TestSess
           attributes,
           name,
           value,
-          payload: await decryptFn(value),
+          payload: decryptFn ? await decryptFn(value) : jose.decodeJwt(value),
         }
       }
 

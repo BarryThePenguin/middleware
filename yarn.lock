@@ -1756,6 +1756,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@hono/auth@workspace:packages/auth":
+  version: 0.0.0-use.local
+  resolution: "@hono/auth@workspace:packages/auth"
+  dependencies:
+    "@arethetypeswrong/cli": "npm:^0.18.2"
+    "@hono/session": "workspace:^"
+    jose: "npm:^6.0.11"
+    openid-client: "npm:^6.6.1"
+    publint: "npm:^0.3.14"
+    tsup: "npm:^8.5.0"
+    typescript: "npm:^5.8.2"
+    unstorage: "npm:^1.17.0"
+    vitest: "npm:^3.2.4"
+  peerDependencies:
+    hono: ">=4.0.0"
+  languageName: unknown
+  linkType: soft
+
 "@hono/bun-compress@workspace:packages/bun-compress":
   version: 0.0.0-use.local
   resolution: "@hono/bun-compress@workspace:packages/bun-compress"
@@ -2197,7 +2215,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hono/session@workspace:packages/session":
+"@hono/session@workspace:^, @hono/session@workspace:packages/session":
   version: 0.0.0-use.local
   resolution: "@hono/session@workspace:packages/session"
   dependencies:
@@ -11815,6 +11833,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"oauth4webapi@npm:^3.5.4":
+  version: 3.5.5
+  resolution: "oauth4webapi@npm:3.5.5"
+  checksum: 10c0/3ab9bcfa0d13818b350c1046012bf7fe43f50ea44c49ad107300f5c3b3e8b914f6f862d3d2419336f7362efc09fc7f73252b8214ce3710b2c4e9f96314d1aac3
+  languageName: node
+  linkType: hard
+
 "object-assign@npm:^4, object-assign@npm:^4.0.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -11953,6 +11978,16 @@ __metadata:
   dependencies:
     yaml: "npm:^2.8.0"
   checksum: 10c0/97de2d24e9ceffb89e1388e137e4a6e17ee57a02dce0c938a5e98b1338ac72b31e8b2ce8dd28945ad43fae8bee2a145892cb548ba5ae60b0930f1b6b79b0747d
+  languageName: node
+  linkType: hard
+
+"openid-client@npm:^6.6.1":
+  version: 6.6.2
+  resolution: "openid-client@npm:6.6.2"
+  dependencies:
+    jose: "npm:^6.0.11"
+    oauth4webapi: "npm:^3.5.4"
+  checksum: 10c0/1b479494cedbd23d512805bc53248b65633637cbb071a322e93e48948d0979a0ccb93ec740fe5ae14b4fc2a3e954bbc2a119ed12faaf862e231fc9fadb8f26f7
   languageName: node
   linkType: hard
 

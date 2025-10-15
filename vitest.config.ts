@@ -3,7 +3,7 @@ import { coverageConfigDefaults, defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
-      exclude: ['packages/ua-blocker/script/**', ...coverageConfigDefaults.exclude],
+      exclude: [...coverageConfigDefaults.exclude, '**/dist/**', '**/examples/**'],
       // TODO: use v8 - https://github.com/vitest-dev/vitest/issues/5783
       provider: 'istanbul',
       thresholds: {
