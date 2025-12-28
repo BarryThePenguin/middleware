@@ -78,7 +78,6 @@ export type Fields =
   | 'link'
   | 'location'
   | 'meeting_for'
-  | 'middle_name'
   | 'payment_pricepoints'
   | 'political'
   | 'profile_pic'
@@ -92,7 +91,7 @@ export type Fields =
   | 'website'
   | ''
 
-export type FacebookErrorResponse = {
+export interface FacebookErrorResponse {
   error?: {
     message: string
     type: string
@@ -101,18 +100,18 @@ export type FacebookErrorResponse = {
   }
 }
 
-export type FacebookTokenResponse = {
+export interface FacebookTokenResponse {
   access_token: string
   token_type: string
   expires_in: number
 }
 
-export type FacebookMeResponse = {
+export interface FacebookMeResponse {
   name: string
   id: string
 }
 
-export type FacebookUser = {
+export interface FacebookUser {
   id: string
   name: string
   email: string

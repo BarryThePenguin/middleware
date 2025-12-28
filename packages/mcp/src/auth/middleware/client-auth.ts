@@ -9,7 +9,7 @@ import type { OAuthClientInformationFull } from '@modelcontextprotocol/sdk/share
 import type { MiddlewareHandler } from 'hono'
 import * as z from 'zod/v4'
 
-export type ClientAuthenticationMiddlewareOptions = {
+export interface ClientAuthenticationMiddlewareOptions {
   /**
    * A store used to read information about registered OAuth clients.
    */
@@ -21,7 +21,7 @@ const ClientAuthenticatedRequestSchema = z.object({
   client_secret: z.string().optional(),
 })
 
-export type ClientAuthenticationEnv = {
+export interface ClientAuthenticationEnv {
   Variables: {
     /**
      * The authenticated client for this request, if the `authenticateClient` middleware was used.

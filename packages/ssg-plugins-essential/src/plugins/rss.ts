@@ -5,18 +5,18 @@ import path from 'node:path'
 import { canonicalizeFilePath } from '../utils/canonicalizeFilePath'
 
 const extractTitleFromHtml = (html: string): string => {
-  const match = html.match(/<title>(.*?)<\/title>/i)
+  const match = /<title>(.*?)<\/title>/i.exec(html)
   return match ? match[1] : ''
 }
 
 const extractDescriptionFromHtml = (html: string): string | undefined => {
-  const match = html.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']/i)
+  const match = /<meta\s+name=["']description["']\s+content=["'](.*?)["']/i.exec(html)
   return match ? match[1] : undefined
 }
 
 type FeedType = 'rss2'
 
-type FeedItem = {
+interface FeedItem {
   title: string
   description?: string
 }
@@ -24,7 +24,7 @@ type FeedItem = {
 /**
  * RSS plugin options.
  */
-export type RssPluginOptions = {
+export interface RssPluginOptions {
   /** The base URL of the site, used to generate full URLs in the RSS feed. */
   baseUrl: string
   /** The title of the RSS feed. */

@@ -4,7 +4,7 @@ import type { Token } from '../../types'
 import { toQueryParams } from '../../utils/objectToQuery'
 import type { GoogleErrorResponse, GoogleTokenResponse, GoogleUser } from './types'
 
-type GoogleAuthFlow = {
+interface GoogleAuthFlow {
   client_id: string
   client_secret: string
   redirect_uri: string

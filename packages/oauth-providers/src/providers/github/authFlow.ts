@@ -9,7 +9,7 @@ import type {
   GitHubUser,
 } from './types'
 
-type GithubAuthFlow = {
+interface GithubAuthFlow {
   client_id: string
   client_secret: string
   scope?: GitHubScope[]
@@ -17,7 +17,7 @@ type GithubAuthFlow = {
   oauthApp: boolean
   code: string | undefined
 }
-type Token = {
+interface Token {
   token: string
   expires_in?: number
 }
@@ -108,12 +108,12 @@ export class AuthFlow {
       throw new HTTPException(400, { message: emails.message })
     }
 
-    let email = emails.find((emails) => emails.primary === true)?.email
+    let email = emails.find((emails) => emails.primary)?.email
     if (email === undefined) {
       email = emails.find((emails) => !emails.email.includes('@users.noreply.github.com'))?.email
     }
 
-    return email as string
+    return email!
   }
 
   async getUserData(): Promise<void> {

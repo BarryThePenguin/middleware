@@ -92,7 +92,7 @@ interface CommonOptions {
   jsxSideEffects?: boolean
 
   /** Documentation: https://esbuild.github.io/api/#define */
-  define?: { [key: string]: string }
+  define?: Record<string, string>
   /** Documentation: https://esbuild.github.io/api/#pure */
   pure?: string[]
   /** Documentation: https://esbuild.github.io/api/#keep-names */
@@ -152,7 +152,7 @@ export interface BuildOptions extends CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#alias */
   alias?: Record<string, string>
   /** Documentation: https://esbuild.github.io/api/#loader */
-  loader?: { [ext: string]: Loader }
+  loader?: Record<string, Loader>
   /** Documentation: https://esbuild.github.io/api/#resolve-extensions */
   resolveExtensions?: string[]
   /** Documentation: https://esbuild.github.io/api/#main-fields */
@@ -166,7 +166,7 @@ export interface BuildOptions extends CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#tsconfig */
   tsconfig?: string
   /** Documentation: https://esbuild.github.io/api/#out-extension */
-  outExtension?: { [ext: string]: string }
+  outExtension?: Record<string, string>
   /** Documentation: https://esbuild.github.io/api/#public-path */
   publicPath?: string
   /** Documentation: https://esbuild.github.io/api/#entry-names */
@@ -178,9 +178,9 @@ export interface BuildOptions extends CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#inject */
   inject?: string[]
   /** Documentation: https://esbuild.github.io/api/#banner */
-  banner?: { [type: string]: string }
+  banner?: Record<string, string>
   /** Documentation: https://esbuild.github.io/api/#footer */
-  footer?: { [type: string]: string }
+  footer?: Record<string, string>
   /** Documentation: https://esbuild.github.io/api/#entry-points */
   entryPoints?: string[] | Record<string, string> | { in: string; out: string }[]
   /** Documentation: https://esbuild.github.io/api/#stdin */
@@ -488,8 +488,9 @@ export interface PartialNote {
 
 /** Documentation: https://esbuild.github.io/api/#metafile */
 export interface Metafile {
-  inputs: {
-    [path: string]: {
+  inputs: Record<
+    string,
+    {
       bytes: number
       imports: {
         path: string
@@ -499,15 +500,17 @@ export interface Metafile {
       }[]
       format?: 'cjs' | 'esm'
     }
-  }
-  outputs: {
-    [path: string]: {
+  >
+  outputs: Record<
+    string,
+    {
       bytes: number
-      inputs: {
-        [path: string]: {
+      inputs: Record<
+        string,
+        {
           bytesInOutput: number
         }
-      }
+      >
       imports: {
         path: string
         kind: ImportKind | 'file-loader'
@@ -517,7 +520,7 @@ export interface Metafile {
       entryPoint?: string
       cssBundle?: string
     }
-  }
+  >
 }
 
 export interface FormatMessagesOptions {
@@ -550,7 +553,7 @@ export interface BuildContext<ProvidedOptions extends BuildOptions = BuildOption
 // This is a TypeScript type-level function which replaces any keys in "In"
 // that aren't in "Out" with "never". We use this to reject properties with
 // typos in object literals. See: https://stackoverflow.com/questions/49580725
-type SameShape<Out, In extends Out> = In & { [Key in Exclude<keyof In, keyof Out>]: never }
+type SameShape<Out, In extends Out> = In & Record<Exclude<keyof In, keyof Out>, never>
 
 /**
  * This function invokes the "esbuild" command-line tool for you. It returns a

@@ -3,7 +3,7 @@ import { getCookie } from 'hono/cookie'
 import { createMiddleware } from 'hono/factory'
 import { HTTPException } from 'hono/http-exception'
 
-export type CloudflareAccessPayload = {
+export interface CloudflareAccessPayload {
   aud: string[]
   email: string
   exp: number
@@ -16,11 +16,11 @@ export type CloudflareAccessPayload = {
   country: string
 }
 
-export type CloudflareAccessVariables = {
+export interface CloudflareAccessVariables {
   accessPayload: CloudflareAccessPayload
 }
 
-type DecodedToken = {
+interface DecodedToken {
   header: object
   payload: CloudflareAccessPayload
   signature: string
@@ -147,9 +147,9 @@ function decodeJwt(token: string): DecodedToken {
     throw new Error('Invalid token')
   }
 
-  const header = JSON.parse(atob(parts[0] as string))
-  const payload = JSON.parse(atob(parts[1] as string))
-  const signature = atob((parts[2] as string).replace(/_/g, '/').replace(/-/g, '+'))
+  const header = JSON.parse(atob(parts[0]))
+  const payload = JSON.parse(atob(parts[1]))
+  const signature = atob(parts[2].replace(/_/g, '/').replace(/-/g, '+'))
 
   return {
     header: header,

@@ -1,7 +1,7 @@
 import type { MeterProvider, TimeInput, Tracer, TracerProvider } from '@opentelemetry/api'
 import type { Context as HonoContext } from 'hono'
 
-export type HttpInstrumentationConfig = {
+export interface HttpInstrumentationConfig {
   tracerProvider?: TracerProvider
   meterProvider?: MeterProvider
   tracer?: Tracer

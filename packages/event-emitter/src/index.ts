@@ -11,9 +11,13 @@ export type EventHandler<T, E extends Env = Env> = (
   payload: T
 ) => void | Promise<void>
 export type EventHandlers<T> = { [K in keyof T]?: EventHandler<T[K]>[] }
-export type EventPayloadMap = { [key: string]: unknown }
-export type EmitAsyncOptions = { mode: 'concurrent' | 'sequencial' }
-export type EventEmitterOptions = { maxHandlers?: number }
+export type EventPayloadMap = Record<string, unknown>
+export interface EmitAsyncOptions {
+  mode: 'concurrent' | 'sequencial'
+}
+export interface EventEmitterOptions {
+  maxHandlers?: number
+}
 
 export interface Emitter<EPMap extends EventPayloadMap> {
   on<Key extends keyof EPMap>(key: Key, handler: EventHandler<EPMap[Key]>): void
@@ -223,9 +227,7 @@ export const createEmitter = <EPMap extends EventPayloadMap>(
               await handler(c, payload)
             })
           )
-          const errors = (
-            results.filter((r) => r.status === 'rejected') as PromiseRejectedResult[]
-          ).map((e) => e.reason)
+          const errors = results.filter((r) => r.status === 'rejected').map((e) => e.reason)
           if (errors.length > 0) {
             throw new AggregateError(
               errors,

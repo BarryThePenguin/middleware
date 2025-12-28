@@ -39,14 +39,14 @@ const standardMetrics: {
 
 export type MetricName = keyof typeof standardMetrics
 
-export type CustomMetricsOptions = {
-  [Name in MetricName]?: Partial<Omit<MetricOptions, 'type' | 'collect' | 'labelNames'>>
-}
+export type CustomMetricsOptions = Partial<
+  Record<MetricName, Partial<Omit<MetricOptions, 'type' | 'collect' | 'labelNames'>>>
+>
 
 type CreatedMetrics = {
   [Name in MetricName]: (typeof standardMetrics)[Name]['type'] extends 'counter'
-    ? Counter<string>
-    : Histogram<string>
+    ? Counter
+    : Histogram
 }
 
 const getMetricConstructor = (type: MetricOptions['type']) =>

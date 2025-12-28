@@ -7,7 +7,7 @@ import type { Emitter } from './index' // Adjust the import path as needed
 describe('Event Emitter Middleware', () => {
   describe('createEmitter', () => {
     it('should create an emitter with initial handlers', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: { id: string; text: string }
       }
       const handlers = {
@@ -27,7 +27,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should allow adding and removing handlers', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -42,7 +42,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should remove all handlers for an event when no handler is specified', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -57,7 +57,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should emit events to all registered handlers', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -71,7 +71,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should not add the same named function handler multiple times', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -83,7 +83,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should emit async events concurrently', async () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: { id: string }
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -117,7 +117,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should emit async events sequentially', async () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: { id: string }
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -150,7 +150,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should throw AggregateError when async handlers fail using emitAsync with concurent mode', async () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -171,7 +171,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should stop execution on first error in async handlers fail using emitAsync with sequential mode', async () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: { id: string }
       }
 
@@ -207,7 +207,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should throw TypeError when adding a non-function handler', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -218,7 +218,9 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should throw RangeError when max handlers limit is reached', () => {
-      type EventPayloadMap = { test: string }
+      interface EventPayloadMap {
+        test: string
+      }
       const emitter = createEmitter<EventPayloadMap>({}, { maxHandlers: 3 })
       emitter.on('test', vi.fn())
       emitter.on('test', vi.fn())
@@ -229,7 +231,9 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should use default max handlers limit of 10 when not specified', () => {
-      type EventPayloadMap = { testEvent: string }
+      interface EventPayloadMap {
+        testEvent: string
+      }
       const emitter = createEmitter<EventPayloadMap>()
       for (let i = 0; i < 10; i++) {
         emitter.on('testEvent', vi.fn())
@@ -240,7 +244,10 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should allow different events to have their own handler counts', () => {
-      type EventPayloadMap = { test1: string; test2: string }
+      interface EventPayloadMap {
+        test1: string
+        test2: string
+      }
       const emitter = createEmitter<EventPayloadMap>({}, { maxHandlers: 2 })
       emitter.on('test1', vi.fn())
       emitter.on('test1', vi.fn())
@@ -254,7 +261,9 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should include event key in error message when limit is reached', () => {
-      type EventPayloadMap = { specificEvent: string }
+      interface EventPayloadMap {
+        specificEvent: string
+      }
       const emitter = createEmitter<EventPayloadMap>({}, { maxHandlers: 1 })
       emitter.on('specificEvent', vi.fn())
       expect(() => {
@@ -263,7 +272,9 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should allow setting custom max handlers limit', () => {
-      type EventPayloadMap = { test: string }
+      interface EventPayloadMap {
+        test: string
+      }
       const emitter = createEmitter<EventPayloadMap>({}, { maxHandlers: 5 })
       for (let i = 0; i < 5; i++) {
         emitter.on('test', vi.fn())
@@ -274,7 +285,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should do nothing when emitting an event with no handlers', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -284,7 +295,7 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should do nothing when emitting an async event with no handlers', async () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const ee = createEmitter<EventPayloadMap>()
@@ -294,7 +305,7 @@ describe('Event Emitter Middleware', () => {
 
   describe('emitter middleware', () => {
     it('should add emitter to context', async () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const middleware = emitter<EventPayloadMap>()
@@ -311,7 +322,7 @@ describe('Event Emitter Middleware', () => {
 
     it('should create emitter with provided handlers', async () => {
       const handler = vi.fn()
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: string
       }
       const middleware = emitter<EventPayloadMap>({ test: [handler] })
@@ -338,7 +349,7 @@ describe('Event Emitter Middleware', () => {
 
   describe('defineHandler', () => {
     it('should return the provided handler', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         test: number
       }
       const handler = (_c: Context, _payload: number) => {}
@@ -359,7 +370,7 @@ describe('Event Emitter Middleware', () => {
 
   describe('type safety', () => {
     it('should enforce correct types for event payloads', () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         numberEvent: number
         objectEvent: { id: string }
       }
@@ -387,11 +398,13 @@ describe('Event Emitter Middleware', () => {
   })
   describe('Hono request flow', () => {
     it('should work when assigning event handlers via middleware', async () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         'todo:created': { id: string; text: string }
       }
 
-      type Env = { Variables: { emitter: Emitter<EventPayloadMap> } }
+      interface Env {
+        Variables: { emitter: Emitter<EventPayloadMap> }
+      }
 
       const handlers = defineHandlers<EventPayloadMap>({
         'todo:created': [vi.fn((_c, _payload) => {})],
@@ -419,11 +432,13 @@ describe('Event Emitter Middleware', () => {
     })
 
     it('should work when assigning async event handlers via middleware', async () => {
-      type EventPayloadMap = {
+      interface EventPayloadMap {
         'todo:created': { id: string; text: string }
       }
 
-      type Env = { Variables: { emitter: Emitter<EventPayloadMap> } }
+      interface Env {
+        Variables: { emitter: Emitter<EventPayloadMap> }
+      }
 
       const handlers = defineHandlers<EventPayloadMap>({
         'todo:created': [vi.fn(async (_c, _payload) => {})],

@@ -443,7 +443,7 @@ describe('processOAuthCallback()', () => {
         res.headers
           .get('set-cookie')
           ?.match(/oidc-auth=[^;]+/)?.[0]
-          ?.split('.')[1] as string
+          ?.split('.')[1]!
       )
     )
     expect(sub).toBe(MOCK_SUBJECT)
@@ -478,7 +478,7 @@ describe('processOAuthCallback()', () => {
         res.headers
           .get('set-cookie')
           ?.match(/oidc-auth=[^;]+/)?.[0]
-          ?.split('.')[1] as string
+          ?.split('.')[1]!
       )
     )
     expect(sub).toBe(MOCK_SUBJECT)

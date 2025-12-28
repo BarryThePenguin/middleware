@@ -80,7 +80,7 @@ describe('Prometheus middleware', () => {
       it('increments the http_requests_total metric with the correct labels on successful responses', async () => {
         await app.request('http://localhost/')
 
-        const { values } = await registry.getSingleMetric('http_requests_total')!.get()!
+        const { values } = await registry.getSingleMetric('http_requests_total')!.get()
 
         expect(values).toEqual([
           {
@@ -98,7 +98,7 @@ describe('Prometheus middleware', () => {
       it('increments the http_requests_total metric with the correct labels on errors', async () => {
         await app.request('http://localhost/notfound')
 
-        const { values } = await registry.getSingleMetric('http_requests_total')!.get()!
+        const { values } = await registry.getSingleMetric('http_requests_total')!.get()
 
         expect(values).toEqual([
           {
@@ -118,9 +118,9 @@ describe('Prometheus middleware', () => {
       it('updates the http_requests_duration metric with the correct labels on successful responses', async () => {
         await app.request('http://localhost/')
 
-        const { values } = await (registry.getSingleMetric(
-          'http_request_duration_seconds'
-        ) as Histogram)!.get()!
+        const { values } = await (
+          registry.getSingleMetric('http_request_duration_seconds') as Histogram
+        ).get()
 
         const countMetric = values.find(
           (v) =>
@@ -136,9 +136,9 @@ describe('Prometheus middleware', () => {
       it('updates the http_requests_duration metric with the correct labels on errors', async () => {
         await app.request('http://localhost/notfound')
 
-        const { values } = await (registry.getSingleMetric(
-          'http_request_duration_seconds'
-        ) as Histogram)!.get()!
+        const { values } = await (
+          registry.getSingleMetric('http_request_duration_seconds') as Histogram
+        ).get()
 
         const countMetric = values.find(
           (v) =>

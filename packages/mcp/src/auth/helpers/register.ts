@@ -8,7 +8,7 @@ import type { OAuthClientInformationFull } from '@modelcontextprotocol/sdk/share
 import { OAuthClientMetadataSchema } from '@modelcontextprotocol/sdk/shared/auth.js'
 import type { MiddlewareHandler } from 'hono'
 
-export type ClientRegistrationHandlerOptions = {
+export interface ClientRegistrationHandlerOptions {
   /**
    * A store used to save information about dynamically registered OAuth clients.
    */

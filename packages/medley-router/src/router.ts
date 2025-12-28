@@ -24,7 +24,7 @@ export class MedleyRouter<T> implements Router<T> {
     const route = this.router.find(path)
 
     if (route) {
-      return [[[route['store'][method]], route['params']]]
+      return [[[route.store[method]], route.params]]
     }
 
     return [[], []]

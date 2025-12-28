@@ -11,7 +11,7 @@ type ExtractSchema<T> = T extends Hono<infer _, infer S> ? S : never
 // ------------------------------------------------------------------
 // Inference
 // ------------------------------------------------------------------
-type ExpectedJson<T> = {
+interface ExpectedJson<T> {
   '/author': {
     $post: {
       input: {
@@ -195,7 +195,7 @@ describe('Validate With TypeBox', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 // ------------------------------------------------------------------
@@ -253,7 +253,7 @@ describe('Validate With Json Schema', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 // ------------------------------------------------------------------

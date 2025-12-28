@@ -34,7 +34,7 @@ interface SessionInit {
   payload: SessionCookie
 }
 
-export type GetSetCookieResult<Value> = {
+export interface GetSetCookieResult<Value> {
   attributes: Record<string, string>
   name: string
   value: string | null

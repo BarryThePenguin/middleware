@@ -5,7 +5,7 @@ import { TokenType } from '@clerk/backend/internal'
 import type { Context, MiddlewareHandler } from 'hono'
 import { env } from 'hono/adapter'
 
-export type ClerkAuthVariables = {
+export interface ClerkAuthVariables {
   clerk: ClerkClient
   clerkAuth: () => SessionAuthObject | null
 }
@@ -15,7 +15,7 @@ export const getAuth = (c: Context): SessionAuthObject | null => {
   return authFn()
 }
 
-type ClerkEnv = {
+interface ClerkEnv {
   CLERK_SECRET_KEY: string
   CLERK_PUBLISHABLE_KEY: string
   CLERK_API_URL: string

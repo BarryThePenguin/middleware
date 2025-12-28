@@ -26,8 +26,8 @@ export function msentraAuth(options: {
       redirect_uri: options.redirect_uri || c.req.url.split('?')[0],
       code: c.req.query('code'),
       token: {
-        token: c.req.query('access_token') as string,
-        expires_in: Number(c.req.query('expires_in')) as number,
+        token: c.req.query('access_token')!,
+        expires_in: Number(c.req.query('expires_in')),
       },
       scope: options.scope,
       state: newState,

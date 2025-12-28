@@ -27,7 +27,7 @@ describe('Basic', () => {
   })
 
   type Actual = ExtractSchema<typeof route>
-  type Expected = {
+  interface Expected {
     '/author': {
       $post: {
         input: {
@@ -81,7 +81,7 @@ describe('Basic', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 

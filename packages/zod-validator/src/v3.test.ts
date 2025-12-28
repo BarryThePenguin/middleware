@@ -39,7 +39,7 @@ describe('Basic', () => {
   )
 
   type Actual = ExtractSchema<typeof route>
-  type Expected = {
+  interface Expected {
     '/author': {
       $post: {
         input: {
@@ -104,7 +104,7 @@ describe('Basic', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 
@@ -121,7 +121,7 @@ describe('coerce', () => {
   })
 
   type Actual = ExtractSchema<typeof route>
-  type Expected = {
+  interface Expected {
     '/page': {
       $get: {
         input: {
@@ -168,7 +168,7 @@ describe('coerce', () => {
     )
 
     type MixedActual = ExtractSchema<typeof mixedRoute>
-    type MixedExpected = {
+    interface MixedExpected {
       '/mixed': {
         $get: {
           input: {
@@ -218,7 +218,7 @@ describe('With Hook', () => {
   )
 
   type Actual = ExtractSchema<typeof route>
-  type Expected = {
+  interface Expected {
     '/post': {
       $post:
         | {
@@ -406,7 +406,7 @@ describe('Only Types', () => {
     })
 
     type Actual = ExtractSchema<typeof route>
-    type Expected = {
+    interface Expected {
       '/': {
         $get: {
           input: {
@@ -446,7 +446,7 @@ describe('Case-Insensitive Headers', () => {
     })
 
     type Actual = ExtractSchema<typeof route>
-    type Expected = {
+    interface Expected {
       '/': {
         $get: {
           input: {

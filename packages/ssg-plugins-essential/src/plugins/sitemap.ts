@@ -6,7 +6,7 @@ import { canonicalizeFilePath } from '../utils/canonicalizeFilePath'
 /**
  * Sitemap plugin options.
  */
-export type SitemapPluginOptions = {
+export interface SitemapPluginOptions {
   /** The base URL of the site, used to generate full URLs in the sitemap. */
   baseUrl: string
   /** Whether to canonicalize URLs in the sitemap. If true, URLs ending with `.html` are canonicalized to remove the extension (e.g., `/foo.html` -> `/foo`). URLs ending with `index.html` are always canonicalized. Default is true. */

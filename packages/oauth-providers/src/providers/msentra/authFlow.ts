@@ -3,7 +3,7 @@ import { HTTPException } from 'hono/http-exception'
 import { toQueryParams } from '../../utils/objectToQuery'
 import type { MSEntraErrorResponse, MSEntraToken, MSEntraTokenResponse, MSEntraUser } from './types'
 
-type MSEntraAuthFlow = {
+interface MSEntraAuthFlow {
   client_id: string
   client_secret: string
   tenant_id: string

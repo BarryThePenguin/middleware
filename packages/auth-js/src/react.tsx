@@ -427,7 +427,7 @@ export const useOauthPopupLogin = (
     }
     setExternalWindow(
       createPopup({
-        url: res?.url as string,
+        url: res?.url!,
         title,
         width,
         height,

@@ -3,7 +3,7 @@ export interface AssetURLs {
   js: string[]
 }
 
-type ResourceConfig = {
+interface ResourceConfig {
   version?: string
 }
 

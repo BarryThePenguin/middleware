@@ -67,8 +67,8 @@ export function tdValidator<
   E extends Env,
   P extends string,
   V extends {
-    in: { [K in Target]: Static<T> }
-    out: { [K in Target]: ExcludeResponseType<Static<T>> }
+    in: Record<Target, Static<T>>
+    out: Record<Target, ExcludeResponseType<Static<T>>>
   },
 >(
   target: Target,

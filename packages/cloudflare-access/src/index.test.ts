@@ -58,15 +58,15 @@ function publicKeyToJWK(publicKey: string): JWK {
   const jwk = keyObject.export({ format: 'jwk' })
 
   // Generate key ID using the modulus
-  const kid = generateKeyThumbprint(jwk.n as string)
+  const kid = generateKeyThumbprint(jwk.n!)
 
   return {
     kid,
     kty: 'RSA',
     alg: 'RS256',
     use: 'sig',
-    e: jwk.e as string,
-    n: jwk.n as string,
+    e: jwk.e!,
+    n: jwk.n!,
   }
 }
 

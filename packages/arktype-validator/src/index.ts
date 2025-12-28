@@ -22,11 +22,11 @@ export const arktypeValidator = <
   I = T['inferIn'],
   O = T['infer'],
   V extends {
-    in: HasUndefined<I> extends true ? { [K in Target]?: I } : { [K in Target]: I }
-    out: { [K in Target]: O }
+    in: HasUndefined<I> extends true ? Partial<Record<Target, I>> : Record<Target, I>
+    out: Record<Target, O>
   } = {
-    in: HasUndefined<I> extends true ? { [K in Target]?: I } : { [K in Target]: I }
-    out: { [K in Target]: O }
+    in: HasUndefined<I> extends true ? Partial<Record<Target, I>> : Record<Target, I>
+    out: Record<Target, O>
   },
 >(
   target: Target,

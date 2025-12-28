@@ -38,7 +38,7 @@ describe('Validate requests using a Valibot schema', () => {
 
   it('check the route object types', () => {
     type Actual = ExtractSchema<typeof route>
-    type Expected = {
+    interface Expected {
       '/author': {
         $post: {
           input: {

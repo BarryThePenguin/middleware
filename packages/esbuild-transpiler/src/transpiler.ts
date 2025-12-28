@@ -2,14 +2,14 @@ import type { MiddlewareHandler } from 'hono'
 import { createMiddleware } from 'hono/factory'
 import type { transform, initialize } from './types.esbuild'
 
-export type EsbuildLike = {
+export interface EsbuildLike {
   transform: typeof transform
   initialize: typeof initialize
 }
 
 export type TransformOptions = Partial<Parameters<typeof transform>[1]>
 
-export type EsbuildTranspilerOptions = {
+export interface EsbuildTranspilerOptions {
   extensions?: string[]
   cache?: boolean
   esbuild?: EsbuildLike

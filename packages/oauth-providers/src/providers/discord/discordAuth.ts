@@ -26,7 +26,7 @@ export function discordAuth(options: {
       state: newState,
       code: c.req.query('code'),
       token: {
-        token: c.req.query('access_token') as string,
+        token: c.req.query('access_token')!,
         expires_in: Number(c.req.query('expires_in')),
       },
     })

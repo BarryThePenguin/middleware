@@ -3,10 +3,10 @@ import { Hono } from 'hono'
 import { trpcServer } from '.'
 
 describe('tRPC Adapter Middleware passing synchronous Context', () => {
-  type Env = {
+  interface Env {
     NAME: string
   }
-  type HonoContext = {
+  interface HonoContext {
     env: Env
     batch: string
   }
@@ -67,10 +67,10 @@ describe('tRPC Adapter Middleware passing synchronous Context', () => {
 })
 
 describe('tRPC Adapter Middleware passing asynchronous Context', () => {
-  type Env = {
+  interface Env {
     NAME: string
   }
-  type HonoContext = {
+  interface HonoContext {
     env: Env
     batch: string
   }

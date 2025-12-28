@@ -5,13 +5,13 @@ import { renderToString } from 'react-dom/server'
 import type { RenderToReadableStreamOptions } from 'react-dom/server'
 import type { Props } from '.'
 
-type RendererOptions = {
+interface RendererOptions {
   docType?: boolean | string
   stream?: boolean | Record<string, string>
   readableStreamOptions?: RenderToReadableStreamOptions
 }
 
-type BaseProps = {
+interface BaseProps {
   c: Context
   children: React.ReactElement
 }

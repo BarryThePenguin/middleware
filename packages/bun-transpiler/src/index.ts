@@ -2,7 +2,7 @@ import Bun from 'bun'
 import type { MiddlewareHandler } from 'hono'
 import { createMiddleware } from 'hono/factory'
 
-type BunTranspilerOptions = {
+interface BunTranspilerOptions {
   extensions?: string[]
   headers?: Record<string, string | string[]>
   transpilerOptions?: Bun.TranspilerOptions

@@ -1,12 +1,12 @@
 import type { Token } from '../../types'
 
-export type MSEntraErrorResponse = {
+export interface MSEntraErrorResponse {
   error: string
   error_description: string
   error_codes: number[]
 }
 
-export type MSEntraTokenResponse = {
+export interface MSEntraTokenResponse {
   access_token: string
   expires_in: number
   scope: string
@@ -15,7 +15,7 @@ export type MSEntraTokenResponse = {
   refresh_token: string
 }
 
-export type MSEntraUser = {
+export interface MSEntraUser {
   id: string
   upn: string
   verified_email: boolean

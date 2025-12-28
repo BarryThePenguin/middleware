@@ -28,7 +28,7 @@ describe('Basic', () => {
   })
 
   type Actual = ExtractSchema<typeof route>
-  type Expected = {
+  interface Expected {
     '/author': {
       $post: {
         input: {

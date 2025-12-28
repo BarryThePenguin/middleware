@@ -17,7 +17,7 @@ export type FailedResponse<T extends GenericSchema | GenericSchemaAsync> =
 type MustBeResponse<T, Schema extends GenericSchema | GenericSchemaAsync> =
   T extends Promise<infer U>
     ? Promise<MustBeResponse<U, Schema>>
-    : T extends Response | TypedResponse<unknown>
+    : T extends Response | TypedResponse
       ? T
       : never
 
@@ -26,15 +26,11 @@ export type Hook<
   E extends Env,
   P extends string,
   Target extends keyof ValidationTargets = keyof ValidationTargets,
-  R extends
+  R extends void | Response | TypedResponse | Promise<Response | TypedResponse | void> =
     | void
     | Response
-    | TypedResponse<unknown>
-    | Promise<Response | TypedResponse<unknown> | void> =
-    | void
-    | Response
-    | TypedResponse<unknown>
-    | Promise<Response | TypedResponse<unknown> | void>,
+    | TypedResponse
+    | Promise<Response | TypedResponse | void>,
 > = (
   result: SafeParseResult<T> & {
     target: Target
@@ -63,14 +59,11 @@ export const vValidator = <
             ? In
             : { [K2 in keyof In]: ValidationTargets[K][K2] }
         }
-    out: { [K in Target]: Out }
+    out: Record<Target, Out>
   },
   V extends I = I,
-  R extends
-    | void
-    | Response
-    | TypedResponse<unknown>
-    | Promise<Response | TypedResponse<unknown> | void> = FailedResponse<T>,
+  R extends void | Response | TypedResponse | Promise<Response | TypedResponse | void> =
+    FailedResponse<T>,
 >(
   target: Target,
   schema: T,

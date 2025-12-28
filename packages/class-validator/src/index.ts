@@ -129,7 +129,7 @@ export const classValidator = <
               ? { [K2 in keyof In]?: ValidationTargets[K][K2] }
               : { [K2 in keyof In]: ValidationTargets[K][K2] }
         }
-    out: { [K in Target]: Output }
+    out: Record<Target, Output>
   },
   V extends I = I,
 >(

@@ -8,7 +8,7 @@ import { Client, B2BClient } from 'stytch'
 /**
  * Environment variables required for Stytch configuration
  */
-type StytchEnv = {
+interface StytchEnv {
   /** The Stytch project ID */
   STYTCH_PROJECT_ID: string
   /** The Stytch project secret */
@@ -23,7 +23,7 @@ type B2BTokenClaims = Awaited<ReturnType<B2BClient['idp']['introspectTokenLocal'
 /**
  * Configuration options for Consumer local session authentication
  */
-type LocalMiddlewareOpts = {
+interface LocalMiddlewareOpts {
   /** Maximum age of the JWT token in seconds */
   maxTokenAgeSeconds?: number
   /**
@@ -65,7 +65,7 @@ type LocalMiddlewareOpts = {
 /**
  * Configuration options for Consumer remote session authentication
  */
-type OnlineMiddlewareOpts = {
+interface OnlineMiddlewareOpts {
   /**
    * Custom function to extract session credentials from the request context.
    * Can return either a JWT or session token for flexibility.
@@ -106,7 +106,7 @@ type OnlineMiddlewareOpts = {
 /**
  * Configuration options for OAuth2 bearer token authentication
  */
-type OAuthMiddlewareOpts = {
+interface OAuthMiddlewareOpts {
   /**
    * Custom function to extract bearer token from the request context.
    * @example
@@ -140,7 +140,7 @@ type OAuthMiddlewareOpts = {
 /**
  * Configuration options for B2B OAuth2 bearer token authentication
  */
-type B2BOAuthMiddlewareOpts = {
+interface B2BOAuthMiddlewareOpts {
   /**
    * Custom function to extract bearer token from the request context.
    * @example
@@ -335,7 +335,7 @@ export const Consumer = {
 
       try {
         const authHeader = c.req.header('Authorization')
-        if (!authHeader || !authHeader.toLowerCase().startsWith('bearer ')) {
+        if (!authHeader?.toLowerCase().startsWith('bearer ')) {
           throw new Error('Missing or invalid access token')
         }
         const bearerToken = authHeader.substring(7)
@@ -497,7 +497,7 @@ export const B2B = {
 
       try {
         const authHeader = c.req.header('Authorization')
-        if (!authHeader || !authHeader.toLowerCase().startsWith('bearer ')) {
+        if (!authHeader?.toLowerCase().startsWith('bearer ')) {
           throw new Error('Missing or invalid access token')
         }
         const bearerToken = authHeader.substring(7)

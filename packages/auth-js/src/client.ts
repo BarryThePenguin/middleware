@@ -85,14 +85,14 @@ export type SessionContextValue<R extends boolean = false> = R extends true
           status: 'unauthenticated' | 'loading'
         }
 
-export type WindowProps = {
+export interface WindowProps {
   url: string
   title: string
   width: number
   height: number
 }
 
-export type AuthState = {
+export interface AuthState {
   status: 'loading' | 'success' | 'errored'
   error?: string
 }

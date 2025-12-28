@@ -209,7 +209,7 @@ describe('Basic', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 
@@ -307,7 +307,7 @@ describe('Async', () => {
   )
 
   type Actual = ExtractSchema<typeof route>
-  type Expected = {
+  interface Expected {
     '/author': {
       $post:
         | {
@@ -452,7 +452,7 @@ describe('Async', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 
@@ -536,7 +536,9 @@ describe('Test types', () => {
     type T = ExtractSchema<typeof routes>
 
     type Actual = T['/']['$post']['input']['query']
-    type Expected = { foo: string }
+    interface Expected {
+      foo: string
+    }
     type verify = Expect<Equal<Expected, Actual>>
   })
 })

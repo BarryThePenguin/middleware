@@ -56,7 +56,9 @@ describe('supports async handler', () => {
   })
 
   test('RouteHandler infers env type from middleware', () => {
-    type CustomEnv = { Variables: { customKey: string } }
+    interface CustomEnv {
+      Variables: { customKey: string }
+    }
 
     const customMiddleware: MiddlewareHandler<CustomEnv> = (c, next) => {
       c.set('customKey', 'customValue')
@@ -93,7 +95,9 @@ describe('supports async handler', () => {
 
   test('RouteHandler infers complex objects from multiple middleware handlers', () => {
     // https://github.com/honojs/middleware/issues/847
-    type CustomEnv = { Variables: { session: { id: string; createdAt: Date } } }
+    interface CustomEnv {
+      Variables: { session: { id: string; createdAt: Date } }
+    }
 
     const setSessionMiddleware: MiddlewareHandler<CustomEnv> = (c, next) => {
       c.set('session', { id: '8e760fe8-f064-4929-b632-737f88213e57', createdAt: new Date() })

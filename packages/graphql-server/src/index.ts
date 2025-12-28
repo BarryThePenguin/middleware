@@ -27,7 +27,7 @@ export type RootResolver<E extends Env = any, P extends string = any, I extends 
 ) => Promise<unknown> | unknown
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Options<E extends Env = any, P extends string = any, I extends Input = {}> = {
+interface Options<E extends Env = any, P extends string = any, I extends Input = {}> {
   // eslint-enable-next-line @typescript-eslint/no-explicit-any
   schema: GraphQLSchema
   rootResolver?: RootResolver<E, P, I>
@@ -59,7 +59,7 @@ export const graphqlServer = <E extends Env = any, P extends string = any, I ext
       params = await getGraphQLParams(c.req.raw)
     } catch (e) {
       if (e instanceof Error) {
-        console.error(`${e.stack || e.message}`)
+        console.error(e.stack || e.message)
         return c.json(errorMessages([e.message], [e]), 400)
       }
       throw e
@@ -89,7 +89,7 @@ export const graphqlServer = <E extends Env = any, P extends string = any, I ext
     } catch (syntaxError: unknown) {
       // Return 400: Bad Request if any syntax errors errors exist.
       if (syntaxError instanceof Error) {
-        console.error(`${syntaxError.stack || syntaxError.message}`)
+        console.error(syntaxError.stack || syntaxError.message)
         const e = new GraphQLError(syntaxError.message, {
           originalError: syntaxError,
         })
@@ -135,7 +135,7 @@ export const graphqlServer = <E extends Env = any, P extends string = any, I ext
       })
     } catch (contextError: unknown) {
       if (contextError instanceof Error) {
-        console.error(`${contextError.stack || contextError.message}`)
+        console.error(contextError.stack || contextError.message)
         const e = new GraphQLError(contextError.message, {
           originalError: contextError,
           nodes: documentAST,
@@ -165,7 +165,7 @@ export const graphqlServer = <E extends Env = any, P extends string = any, I ext
 
 export interface GraphQLParams {
   query: string | null
-  variables: { readonly [name: string]: unknown } | null
+  variables: Readonly<Record<string, unknown>> | null
   operationName: string | null
   raw: boolean
 }
@@ -182,9 +182,9 @@ export const getGraphQLParams = async (request: Request): Promise<GraphQLParams>
   }
 
   // Parse the variables if needed.
-  let variables = (urlData.get('variables') ?? bodyData.variables) as {
-    readonly [name: string]: unknown
-  } | null
+  let variables = (urlData.get('variables') ?? bodyData.variables) as Readonly<
+    Record<string, unknown>
+  > | null
   if (typeof variables === 'string') {
     try {
       variables = JSON.parse(variables)

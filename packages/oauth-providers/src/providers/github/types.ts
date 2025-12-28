@@ -33,14 +33,14 @@ export type GitHubScope =
   | 'codespace'
   | 'workflow'
 
-export type GitHubErrorResponse = {
+export interface GitHubErrorResponse {
   error: string
   error_description: string
   message: string
   documentation_url: string
 }
 
-export type GitHubTokenResponse = {
+export interface GitHubTokenResponse {
   access_token: string
   expires_in?: number
   refresh_token?: string
@@ -49,7 +49,7 @@ export type GitHubTokenResponse = {
   scope: string
 }
 
-export type GitHubUser = {
+export interface GitHubUser {
   login: string
   id: number
   node_id: string
@@ -96,7 +96,7 @@ export type GitHubUser = {
   }
 }
 
-export type GitHubEmailResponse = {
+export interface GitHubEmailResponse {
   email: string
   primary: boolean
   vrified: boolean

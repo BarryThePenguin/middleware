@@ -5,7 +5,7 @@ import path from 'node:path'
 /**
  * Robots.txt plugin options.
  */
-export type RobotsTxtPluginOptions = {
+export interface RobotsTxtPluginOptions {
   /** An array of rules for user agents. */
   rules?: {
     /** The user agent to apply the rules to. Use `*` for all user agents. */

@@ -199,7 +199,7 @@ export const handlers = [
       request,
     }): Promise<StrictResponse<typeof twitchValidateSuccess | typeof twitchValidateError>> => {
       const authHeader = request.headers.get('authorization')
-      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      if (!authHeader?.startsWith('Bearer ')) {
         return HttpResponse.json(twitchValidateError, { status: 401 })
       }
 

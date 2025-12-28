@@ -1,4 +1,4 @@
-type Challenge = {
+interface Challenge {
   codeVerifier: string
   codeChallenge: string
 }

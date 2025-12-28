@@ -4,7 +4,7 @@ import type { Token } from '../../types'
 import { toQueryParams } from '../../utils/objectToQuery'
 import type { XErrorResponse, XFields, XMeResponse, XScopes, XTokenResponse, XUser } from './types'
 
-type XAuthFlow = {
+interface XAuthFlow {
   client_id: string
   client_secret: string
   redirect_uri: string

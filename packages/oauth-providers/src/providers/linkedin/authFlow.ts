@@ -9,7 +9,7 @@ import type {
   LinkedInUser,
 } from './types'
 
-export type LinkedInAuthFlow = {
+export interface LinkedInAuthFlow {
   client_id: string
   client_secret: string
   redirect_uri: string

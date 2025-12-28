@@ -94,7 +94,7 @@ export type Scopes =
   | 'whispers:read'
 
 // Error responses types from Twitch API
-export type TwitchErrorResponse = {
+export interface TwitchErrorResponse {
   error?: string
   error_description?: string
   state?: string

@@ -9,7 +9,7 @@ export async function parseBody(req: Request): Promise<Record<string, unknown>> 
         return await req.json()
       } catch (e) {
         if (e instanceof Error) {
-          console.error(`${e.stack || e.message}`)
+          console.error(e.stack || e.message)
         }
         throw Error(`POST body sent invalid JSON: ${e}`)
       }
@@ -23,7 +23,7 @@ export async function parseBody(req: Request): Promise<Record<string, unknown>> 
 const parseFormURL = async (req: Request) => {
   const text = await req.text()
   const searchParams = new URLSearchParams(text)
-  const res: { [params: string]: string } = {}
+  const res: Record<string, string> = {}
   searchParams.forEach((v, k) => (res[k] = v))
   return res
 }

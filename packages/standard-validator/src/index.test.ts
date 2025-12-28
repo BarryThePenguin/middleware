@@ -82,12 +82,6 @@ describe('Standard Schema Validation', () => {
             | {
                 name?: string | undefined
               }
-            | {
-                name?: string | undefined
-              }
-            | {
-                name?: string | undefined
-              }
             | undefined,
             Actual['/author']['$post']['input']['query']
           >
@@ -129,7 +123,7 @@ describe('Standard Schema Validation', () => {
           expect(res).not.toBeNull()
           expect(res.status).toBe(400)
           const data = (await res.json()) as { success: boolean }
-          expect(data['success']).toBe(false)
+          expect(data.success).toBe(false)
         })
       })
 
@@ -143,20 +137,13 @@ describe('Standard Schema Validation', () => {
         })
 
         type Actual = ExtractSchema<typeof route>
-        type Expected = {
+        interface Expected {
           '/page': {
             $get: {
               input: {
-                query:
-                  | {
-                      page: string | string[]
-                    }
-                  | {
-                      page: string | string[]
-                    }
-                  | {
-                      page: string | string[]
-                    }
+                query: {
+                  page: string | string[]
+                }
               }
               output: {
                 page: number
@@ -472,7 +459,7 @@ describe('Standard Schema Validation', () => {
           if (lib === 'arktype') {
             expect(
               (data.error as { data: Record<string, unknown> }[]).some(
-                (error) => error.data && error.data.cookie
+                (error) => error.data?.cookie
               )
             ).toBe(false)
           }

@@ -4,7 +4,7 @@ import type { Context, MiddlewareHandler } from 'hono'
 import { getCookie } from 'hono/cookie'
 import { HTTPException } from 'hono/http-exception'
 
-export type VerifyFirebaseAuthEnv = {
+export interface VerifyFirebaseAuthEnv {
   PUBLIC_JWK_CACHE_KEY?: string | undefined
   PUBLIC_JWK_CACHE_KV?: KVNamespace | undefined
   FIREBASE_AUTH_EMULATOR_HOST: string | undefined

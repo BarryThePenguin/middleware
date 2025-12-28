@@ -28,15 +28,11 @@ type Hook<
   E extends Env,
   P extends string,
   Target extends keyof ValidationTargets = keyof ValidationTargets,
-  R extends
+  R extends void | Response | TypedResponse | Promise<Response | TypedResponse | void> =
     | void
     | Response
-    | TypedResponse<unknown>
-    | Promise<Response | TypedResponse<unknown> | void> =
-    | void
-    | Response
-    | TypedResponse<unknown>
-    | Promise<Response | TypedResponse<unknown> | void>,
+    | TypedResponse
+    | Promise<Response | TypedResponse | void>,
 > = (
   result: (
     | { success: true; data: T }
@@ -127,14 +123,11 @@ const sValidator = <
             ? In
             : { [K2 in keyof In]: ValidationTargets[K][K2] }
         }
-    out: { [K in Target]: Out }
+    out: Record<Target, Out>
   },
   V extends I = I,
-  R extends
-    | void
-    | Response
-    | TypedResponse<unknown>
-    | Promise<Response | TypedResponse<unknown> | void> = FailedResponse<ValidationTargets[Target]>,
+  R extends void | Response | TypedResponse | Promise<Response | TypedResponse | void> =
+    FailedResponse<ValidationTargets[Target]>,
 >(
   target: Target,
   schema: Schema,

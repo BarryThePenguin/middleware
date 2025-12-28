@@ -14,14 +14,14 @@ declare module 'hono' {
   }
 }
 
-export type AuthEnv = {
+export interface AuthEnv {
   AUTH_URL?: string
   AUTH_SECRET: string
   AUTH_REDIRECT_PROXY_URL?: string
   [key: string]: string | undefined
 }
 
-export type AuthUser = {
+export interface AuthUser {
   session: Session
   token?: JWT
   user?: AdapterUser
@@ -57,7 +57,7 @@ export function reqWithEnvUrl(req: Request, authUrl?: string): Request {
   }
   if (host != null) {
     url.host = host
-    const portMatch = host.match(/:(\d+)$/)
+    const portMatch = /:(\d+)$/.exec(host)
     if (portMatch) {
       url.port = portMatch[1]
     } else {
@@ -82,7 +82,7 @@ export async function getAuthUser(c: Context): Promise<AuthUser | null> {
 
   let authUser: AuthUser = {} as AuthUser
 
-  const response = (await Auth(request, {
+  const response = await Auth(request, {
     ...config,
     callbacks: {
       ...config.callbacks,
@@ -93,7 +93,7 @@ export async function getAuthUser(c: Context): Promise<AuthUser | null> {
         return { user, ...session } satisfies Session
       },
     },
-  })) as Response
+  })
 
   const session = (await response.json()) as Session | null
 

@@ -15,7 +15,7 @@ type ExtractSchema<T> = T extends Hono<infer _, infer S> ? S : never
 // ------------------------------------------------------------------
 // Inference
 // ------------------------------------------------------------------
-type ExpectedJson<T> = {
+interface ExpectedJson<T> {
   '/vector3': {
     $post: {
       input: {
@@ -306,7 +306,7 @@ describe('Validate With TypeScript', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 // ------------------------------------------------------------------
@@ -360,7 +360,7 @@ describe('Validate With TypeBox', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 // ------------------------------------------------------------------
@@ -415,7 +415,7 @@ describe('Validate With JsonSchema', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 // ------------------------------------------------------------------
@@ -469,7 +469,7 @@ describe('Validate With Zod', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 // ------------------------------------------------------------------
@@ -523,7 +523,7 @@ describe('Validate With Valibot', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 // ------------------------------------------------------------------
@@ -577,7 +577,7 @@ describe('Validate With ArkType', () => {
     expect(res).not.toBeNull()
     expect(res.status).toBe(400)
     const data = (await res.json()) as { success: boolean }
-    expect(data['success']).toBe(false)
+    expect(data.success).toBe(false)
   })
 })
 // ------------------------------------------------------------------

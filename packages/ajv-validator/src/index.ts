@@ -76,8 +76,8 @@ export function ajvValidator<
   E,
   P,
   {
-    in: { [K in Target]: T }
-    out: { [K in Target]: T }
+    in: Record<Target, T>
+    out: Record<Target, T>
   }
 > {
   const ajv = new Ajv()

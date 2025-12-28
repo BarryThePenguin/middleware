@@ -61,7 +61,7 @@ describe('Types', () => {
   })
 
   it('Should return correct types', () => {
-    type Expected = {
+    interface Expected {
       '/posts': {
         $post: {
           input: {
@@ -240,7 +240,7 @@ describe('coerce', () => {
     )
 
     type Actual = ExtractSchema<typeof routes>['/api/users/:id']['$get']['input']
-    type Expected = {
+    interface Expected {
       param: {
         id: unknown
       }
@@ -374,7 +374,7 @@ describe('HonoToOpenAPIHono', () => {
     const app = new OpenAPIHono()
     const result = app.get('/hello', (c) => c.json({ message: 'Hello' }))
 
-    type Expected = {
+    interface Expected {
       '/hello': {
         $get: {
           input: {}

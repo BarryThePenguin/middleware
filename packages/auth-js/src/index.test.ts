@@ -165,7 +165,7 @@ describe('reqWithEnvUrl()', async () => {
     app.use(
       '/api/auth/*',
       validator('form', (value, _) => {
-        const csrfToken = value['csrfToken']
+        const csrfToken = value.csrfToken
         return {
           csrfToken,
         }

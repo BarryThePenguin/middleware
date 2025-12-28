@@ -10,7 +10,7 @@ import type {
   Scopes,
 } from './types'
 
-type FacebookAuthFlow = {
+interface FacebookAuthFlow {
   client_id: string
   client_secret: string
   redirect_uri: string

@@ -114,11 +114,11 @@ interface TypiaValidator {
     E extends Env,
     P extends string,
     V extends {
-      in: { [K in Target]: O }
-      out: { [K in Target]: O }
+      in: Record<Target, O>
+      out: Record<Target, O>
     } = {
-      in: { [K in Target]: O }
-      out: { [K in Target]: O }
+      in: Record<Target, O>
+      out: Record<Target, O>
     },
   >(
     target: Target,

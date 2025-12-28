@@ -1,10 +1,10 @@
-export type OAuthVariables = {
+export interface OAuthVariables {
   token: Token | undefined
   'refresh-token': Token | undefined
   'granted-scopes': string[] | undefined
 }
 
-export type Token = {
+export interface Token {
   token: string
   expires_in?: number
 }

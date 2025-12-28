@@ -51,7 +51,7 @@ type ExtractValidationResponse<VF> = VF extends (value: any, c: any) => infer R
           : never
   : never
 
-type DefaultInput<Target extends keyof ValidationTargets, In, Out> = {
+interface DefaultInput<Target extends keyof ValidationTargets, In, Out> {
   in: HasUndefined<In> extends true
     ? {
         [K in Target]?: [In] extends [ValidationTargets[K]] ? In : InferInput<In, K>
@@ -59,7 +59,7 @@ type DefaultInput<Target extends keyof ValidationTargets, In, Out> = {
     : {
         [K in Target]: [In] extends [ValidationTargets[K]] ? In : InferInput<In, K>
       }
-  out: { [K in Target]: Out }
+  out: Record<Target, Out>
 }
 
 // without hook and options
@@ -140,11 +140,10 @@ function zValidatorFunction<
       )
     }
 
-    const result =
-      options && options.validationFunction
-        ? await options.validationFunction(schema, validatorValue)
-        : // @ts-expect-error z4.$ZodType has safeParseAsync
-          await schema.safeParseAsync(validatorValue)
+    const result = options?.validationFunction
+      ? await options.validationFunction(schema, validatorValue)
+      : // @ts-expect-error z4.$ZodType has safeParseAsync
+        await schema.safeParseAsync(validatorValue)
 
     if (hook) {
       const hookResult = await hook({ data: validatorValue, ...result, target }, c)

@@ -283,7 +283,7 @@ describe('MCP helper', () => {
     expect(response.status).toBe(200)
     const newSessionId = response.headers.get('mcp-session-id')
     expect(newSessionId).toBeDefined()
-    return newSessionId as string
+    return newSessionId!
   }
 
   it('should initialize server and generate session ID', async () => {
@@ -415,7 +415,7 @@ describe('MCP helper', () => {
         return {
           content: [
             { type: 'text', text: `Hello, ${name}!` },
-            { type: 'text', text: `${JSON.stringify(requestInfo)}` },
+            { type: 'text', text: JSON.stringify(requestInfo) },
           ],
         }
       }
@@ -1028,7 +1028,7 @@ describe('StreamableHTTPServerTransport with AuthInfo', () => {
     expect(response.status).toBe(200)
     const newSessionId = response.headers.get('mcp-session-id')
     expect(newSessionId).toBeDefined()
-    return newSessionId as string
+    return newSessionId!
   }
 
   it('should call a tool with authInfo', async () => {
@@ -1123,7 +1123,7 @@ describe('StreamableHTTPServerTransport with JSON Response Mode', () => {
     // Initialize and get session ID
     const initResponse = await sendPostRequest(server, TEST_MESSAGES.initialize)
 
-    sessionId = initResponse.headers.get('mcp-session-id') as string
+    sessionId = initResponse.headers.get('mcp-session-id')!
   })
 
   afterEach(async () => {
@@ -1233,7 +1233,7 @@ describe('StreamableHTTPServerTransport with pre-parsed body', () => {
 
     // Initialize and get session ID
     const initResponse = await sendPostRequest(server, TEST_MESSAGES.initialize)
-    sessionId = initResponse.headers.get('mcp-session-id') as string
+    sessionId = initResponse.headers.get('mcp-session-id')!
   })
 
   afterEach(async () => {
@@ -1396,7 +1396,7 @@ describe('StreamableHTTPServerTransport with resumability', () => {
 
     // Initialize the server
     const initResponse = await sendPostRequest(server, TEST_MESSAGES.initialize)
-    sessionId = initResponse.headers.get('mcp-session-id') as string
+    sessionId = initResponse.headers.get('mcp-session-id')!
     expect(sessionId).toBeDefined()
   })
 
@@ -1437,7 +1437,7 @@ describe('StreamableHTTPServerTransport with resumability', () => {
     expect(text).toContain('"method":"notifications/message"')
 
     // Extract the event ID
-    const idMatch = text.match(/id: ([^\n]+)/)
+    const idMatch = /id: ([^\n]+)/.exec(text)
     expect(idMatch).toBeTruthy()
 
     // Verify the event was stored
@@ -1474,7 +1474,7 @@ describe('StreamableHTTPServerTransport with resumability', () => {
     expect(text).toContain('First notification from MCP server')
 
     // Extract the event ID
-    const idMatch = text.match(/id: ([^\n]+)/)
+    const idMatch = /id: ([^\n]+)/.exec(text)
     expect(idMatch).toBeTruthy()
     const firstEventId = idMatch![1]
 

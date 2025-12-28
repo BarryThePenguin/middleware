@@ -36,12 +36,12 @@ export type XFields =
   | 'verified_type'
   | 'withheld'
 
-export type XErrorResponse = {
+export interface XErrorResponse {
   error: string
   error_description: string
 }
 
-export type XTokenResponse = {
+export interface XTokenResponse {
   access_token: string
   expires_in: number
   scope: string
@@ -49,15 +49,15 @@ export type XTokenResponse = {
   refresh_token?: string
 }
 
-export type XMeResponse = {
+export interface XMeResponse {
   data: XUser
 }
 
-export type XRevokeResponse = {
+export interface XRevokeResponse {
   revoked: boolean
 }
 
-export type XUser = {
+export interface XUser {
   created_at: string
   description: string
   entities: {

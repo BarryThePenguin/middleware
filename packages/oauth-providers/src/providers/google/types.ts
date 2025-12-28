@@ -1,4 +1,4 @@
-export type GoogleErrorResponse = {
+export interface GoogleErrorResponse {
   error?: {
     code: number
     message: string
@@ -7,7 +7,7 @@ export type GoogleErrorResponse = {
   error_description: string
 }
 
-export type GoogleTokenResponse = {
+export interface GoogleTokenResponse {
   access_token: string
   expires_in: number
   refresh_token: string
@@ -17,7 +17,7 @@ export type GoogleTokenResponse = {
   id_token: string
 }
 
-export type GoogleTokenInfoResponse = {
+export interface GoogleTokenInfoResponse {
   issued_to: string
   audience: string
   user_id: string
@@ -28,7 +28,7 @@ export type GoogleTokenInfoResponse = {
   access_type: string
 }
 
-export type GoogleUser = {
+export interface GoogleUser {
   id: string
   email: string
   verified_email: boolean

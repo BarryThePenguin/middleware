@@ -52,7 +52,7 @@ export type RouteConfig = RouteConfigBase & {
   hide?: boolean
 }
 
-type RequestTypes = {
+interface RequestTypes {
   body?: ZodRequestBody
   params?: ZodType
   query?: ZodType
@@ -112,7 +112,7 @@ type InputTypeBase<
                 [K2 in keyof z.input<RequestPart<R, Part>>]: z.input<RequestPart<R, Part>>[K2]
               }
         }
-        out: { [K in Type]: z.output<RequestPart<R, Part>> }
+        out: Record<Type, z.output<RequestPart<R, Part>>>
       }
     : {}
   : {}
@@ -182,7 +182,7 @@ type ExtractContent<T> = T extends {
     : never
   : never
 
-type StatusCodeRangeDefinitions = {
+interface StatusCodeRangeDefinitions {
   '1XX': InfoStatusCode
   '2XX': SuccessStatusCode
   '3XX': RedirectStatusCode
@@ -236,7 +236,7 @@ type ConvertPathType<T extends string> = T extends `${infer Start}/{${infer Para
   ? `${Start}/:${Param}${ConvertPathType<Rest>}`
   : T
 
-export type OpenAPIHonoOptions<E extends Env> = {
+export interface OpenAPIHonoOptions<E extends Env> {
   defaultHook?: Hook<any, E, any, any>
 }
 type HonoInit<E extends Env> = ConstructorParameters<typeof Hono>[0] & OpenAPIHonoOptions<E>
@@ -325,13 +325,12 @@ export type RouteHandler<
   I,
   // If response type is defined, only TypedResponse is allowed.
   R extends {
-    responses: {
-      [statusCode: number]: {
-        content: {
-          [mediaType: string]: ZodMediaTypeObject
-        }
+    responses: Record<
+      number,
+      {
+        content: Record<string, ZodMediaTypeObject>
       }
-    }
+    >
   }
     ? MaybePromise<RouteConfigToTypedResponse<R>>
     : MaybePromise<RouteConfigToTypedResponse<R>> | MaybePromise<Response>
@@ -462,13 +461,12 @@ export class OpenAPIHono<
       I,
       // If response type is defined, only TypedResponse is allowed.
       R extends {
-        responses: {
-          [statusCode: number]: {
-            content: {
-              [mediaType: string]: ZodMediaTypeObject
-            }
+        responses: Record<
+          number,
+          {
+            content: Record<string, ZodMediaTypeObject>
           }
-        }
+        >
       }
         ? MaybePromise<RouteConfigToTypedResponse<R>>
         : MaybePromise<RouteConfigToTypedResponse<R>> | MaybePromise<Response>
@@ -479,23 +477,18 @@ export class OpenAPIHono<
           E,
           P,
           R extends {
-            responses: {
-              [statusCode: number]: {
-                content: {
-                  [mediaType: string]: ZodMediaTypeObject
-                }
+            responses: Record<
+              number,
+              {
+                content: Record<string, ZodMediaTypeObject>
               }
-            }
+            >
           }
             ? MaybePromise<RouteConfigToTypedResponse<R>> | undefined
             : MaybePromise<RouteConfigToTypedResponse<R>> | MaybePromise<Response> | undefined
         >
       | undefined = this.defaultHook
-  ): OpenAPIHono<
-    E,
-    S & ToSchema<R['method'], MergePath<BasePath, P>, I, RouteConfigToTypedResponse<R>>,
-    BasePath
-  > => {
+  ): this => {
     if (!hide) {
       this.openAPIRegistry.registerPath(route)
     }
@@ -529,7 +522,7 @@ export class OpenAPIHono<
         if (!bodyContent[mediaType]) {
           continue
         }
-        const schema = (bodyContent[mediaType] as ZodMediaTypeObject)['schema']
+        const schema = bodyContent[mediaType].schema
         if (!isZod(schema)) {
           continue
         }

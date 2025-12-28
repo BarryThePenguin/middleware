@@ -21,9 +21,7 @@ export type OidcClaimsHook = (
 ) => Promise<OidcAuthClaims>
 
 declare module 'hono' {
-  export interface OidcAuthClaims {
-    readonly [claim: string]: oauth2.JsonValue | undefined
-  }
+  export type OidcAuthClaims = Readonly<Record<string, oauth2.JsonValue | undefined>>
   interface ContextVariableMap {
     oidcAuthEnv: OidcAuthEnv
     oidcAuthorizationServer: oauth2.AuthorizationServer
@@ -46,7 +44,7 @@ export type OidcAuth = {
   ssnexp: number // session expiration time; if it's expired, revoke session and redirect to IdP
 } & OidcAuthClaims
 
-export type OidcAuthEnv = {
+export interface OidcAuthEnv {
   OIDC_AUTH_SECRET: string
   OIDC_AUTH_REFRESH_INTERVAL?: string
   OIDC_AUTH_EXPIRES?: string
@@ -206,7 +204,7 @@ export const getAuth = async (c: Context): Promise<OidcAuth | null> => {
       deleteCookie(c, env.OIDC_COOKIE_NAME, { path: env.OIDC_COOKIE_PATH })
       return null
     }
-    if (auth === null || auth.rtkexp === undefined || auth.ssnexp === undefined) {
+    if (auth?.rtkexp === undefined || auth.ssnexp === undefined) {
       throw new HTTPException(500, { message: 'Invalid session' })
     }
     const now = Math.floor(Date.now() / 1000)
@@ -347,7 +345,7 @@ const generateAuthorizationRequestUrl = async (
     })
   } else if (env.OIDC_SCOPES !== '') {
     for (const scope of env.OIDC_SCOPES.split(' ')) {
-      if (as.scopes_supported.indexOf(scope) === -1) {
+      if (!as.scopes_supported.includes(scope)) {
         throw new HTTPException(500, {
           message: `The '${scope}' scope is not supported by the IdP`,
         })

@@ -29,11 +29,11 @@ export const effectValidator = <
               ? { [K2 in keyof In]?: ValidationTargets[K][K2] }
               : { [K2 in keyof In]: ValidationTargets[K][K2] }
         }
-    out: { [K in Target]: Out }
+    out: Record<Target, Out>
   },
 >(
   target: Target,
-  schema: S.Schema<Type, Encoded, never>
+  schema: S.Schema<Type, Encoded>
 ): MiddlewareHandler<E, P, I> => {
   // @ts-expect-error not typed well
   return validator(target, async (value, c) => {

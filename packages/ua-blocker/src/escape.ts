@@ -5,7 +5,7 @@ const SYNTAX_SOLIDUS = /[/]/
 const OTHER_PUNCTUATORS_AND_WHITESPACES = /[!"#$&'()*+,./:;<=>?@[\]^`{|}~\s]/
 
 // Control characters to escape, mapping to their escape sequence character
-const ControlEscape: { [key: string]: string } = {
+const ControlEscape: Record<string, string> = {
   '\0': '0', // Null character
   '\b': 'b', // Backspace
   '\t': 't', // Horizontal tab

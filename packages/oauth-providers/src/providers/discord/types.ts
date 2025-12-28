@@ -28,14 +28,14 @@ export type Scopes =
   | 'voice'
   | 'webhook.incoming'
 
-export type DiscordErrorResponse = {
+export interface DiscordErrorResponse {
   message?: string
   code?: number
   error?: string
   error_description?: string
 }
 
-export type DiscordTokenResponse = {
+export interface DiscordTokenResponse {
   token_type: string
   access_token: string
   expires_in: number

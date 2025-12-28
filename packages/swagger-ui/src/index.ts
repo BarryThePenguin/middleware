@@ -5,7 +5,7 @@ import { renderSwaggerUIOptions } from './swagger/renderer'
 import type { AssetURLs } from './swagger/resource'
 import { remoteAssets } from './swagger/resource'
 
-type OriginalSwaggerUIOptions = {
+interface OriginalSwaggerUIOptions {
   version?: string
   /**
    * manuallySwaggerUIHtml is a string that is used to render SwaggerUI.

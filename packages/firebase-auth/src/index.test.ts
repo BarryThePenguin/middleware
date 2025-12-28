@@ -11,7 +11,7 @@ import { verifyFirebaseAuth, getFirebaseToken, verifySessionCookieFirebaseAuth }
 
 beforeEach(() => {
   // magic to reset state of static object for "firebase-auth-cloudflare-workers"
-  delete Auth['instance']
+  delete Auth.instance
 })
 
 describe('verifyFirebaseAuth middleware', () => {

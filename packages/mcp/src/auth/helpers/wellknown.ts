@@ -6,7 +6,7 @@ import type { Env, Schema } from 'hono'
 import { Hono } from 'hono'
 import { checkIssuerUrl } from './utils'
 
-export type WellKnownRouterOptions = {
+export interface WellKnownRouterOptions {
   /**
    * OAuth Metadata as would be returned from the authorization server
    * this MCP server relies on

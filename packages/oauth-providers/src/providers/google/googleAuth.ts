@@ -30,8 +30,8 @@ export function googleAuth(options: {
       state: newState,
       code: c.req.query('code'),
       token: {
-        token: c.req.query('access_token') as string,
-        expires_in: Number(c.req.query('expires-in')) as number,
+        token: c.req.query('access_token')!,
+        expires_in: Number(c.req.query('expires-in')),
       },
     })
 

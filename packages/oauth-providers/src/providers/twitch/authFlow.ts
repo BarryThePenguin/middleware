@@ -10,7 +10,7 @@ import type {
   Scopes,
 } from './types'
 
-type TwitchAuthFlow = {
+interface TwitchAuthFlow {
   client_id: string
   client_secret: string
   redirect_uri: string

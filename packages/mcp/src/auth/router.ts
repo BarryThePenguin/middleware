@@ -15,7 +15,7 @@ import {
 } from './helpers'
 import { authenticateClient } from './middleware/client-auth'
 
-export type AuthRouterOptions = {
+export interface AuthRouterOptions {
   /**
    * A provider implementing the actual authorization logic for this router.
    */

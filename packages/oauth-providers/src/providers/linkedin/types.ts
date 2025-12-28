@@ -7,7 +7,6 @@ export type LinkedInScope =
   | 'r_organization_admin'
   | 'w_organization_social'
   | 'r_organization_social'
-  | 'w_member_social'
   | 'rw_ads'
   | 'r_ads'
   | 'r_ads_reporting'
@@ -22,13 +21,13 @@ export type LinkedInScope =
   | 'r_compliance'
   | 'w_compliance'
 
-export type LinkedInErrorResponse = {
+export interface LinkedInErrorResponse {
   error: string
   error_description: string
   message: string
 }
 
-export type LinkedInTokenResponse = {
+export interface LinkedInTokenResponse {
   access_token: string
   expires_in: number
   refresh_token: string
@@ -36,7 +35,7 @@ export type LinkedInTokenResponse = {
   scope?: string
 }
 
-export type LinkedInUser = {
+export interface LinkedInUser {
   sub: string
   email_verified: boolean
   name: string

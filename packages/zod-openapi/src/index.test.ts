@@ -22,7 +22,10 @@ describe('Constructor', () => {
   })
 
   it('Should accept a defaultHook', () => {
-    type FakeEnv = { Variables: { fake: string }; Bindings: { other: number } }
+    interface FakeEnv {
+      Variables: { fake: string }
+      Bindings: { other: number }
+    }
     const app = new OpenAPIHono<FakeEnv>({
       defaultHook: (_result, c) => {
         // Make sure we're passing context types through
@@ -1152,7 +1155,7 @@ describe('basePath()', () => {
   it('Should add the base path to paths', async () => {
     const res = await app.request('/api/doc')
     expect(res.status).toBe(200)
-    const data = (await res.json()) as any
+    const data = await res.json()
     expect(Object.keys(data.paths)[0]).toBe('/api/message')
   })
 
@@ -1845,7 +1848,7 @@ describe('Named params in nested routes', () => {
     const res = await root.request('/doc')
     expect(res.status).toBe(200)
     const data = (await res.json()) as { paths: string[] }
-    expect(Object.keys(data['paths'])[0]).toBe('/root/{rootId}/sub/{subId}')
+    expect(Object.keys(data.paths)[0]).toBe('/root/{rootId}/sub/{subId}')
   })
 })
 
@@ -1955,9 +1958,7 @@ describe('doc31 with generator options', () => {
     const res = await app.request('/doc')
     expect(res.status).toBe(200)
     const doc = await res.json()
-    expect(
-      doc['paths']['/hello']['get']['responses']['200']['content']['application/json']['schema']
-    ).toEqual({
+    expect(doc.paths['/hello'].get.responses['200'].content['application/json'].schema).toEqual({
       anyOf: [
         { enum: ['hello'], type: 'string' },
         { enum: ['world'], type: 'string' },

@@ -6,7 +6,7 @@ export interface CustomSwaggerUIOptions {
   /**
    * A JavaScript object describing the OpenAPI definition. When used, the url parameter will not be parsed. This is useful for testing manually-generated definitions without hosting them
    */
-  spec?: { [propName: string]: any } | undefined
+  spec?: Record<string, any> | undefined
   /**
    * The URL pointing to API definition (normally swagger.json or swagger.yaml). Will be ignored if urls or spec is used.
    */
@@ -152,12 +152,13 @@ export interface CustomSwaggerUIOptions {
   requestSnippets?:
     | {
         generators?:
-          | {
-              [genName: string]: {
+          | Record<
+              string,
+              {
                 title: string
                 syntax: string
               }
-            }
+            >
           | undefined
         defaultExpanded?: boolean | undefined
         /**
@@ -262,28 +263,25 @@ type SupportedHTTPMethods =
 
 type SorterLike = 'alpha' | 'method' | ((name1: string, name2: string) => number)
 
-interface Request {
-  [prop: string]: any
-}
+type Request = Record<string, any>
 
-interface Response {
-  [prop: string]: any
-}
+type Response = Record<string, any>
 
 /**
  * See https://swagger.io/docs/open-source-tools/swagger-ui/customization/plugin-api/
  */
 type SwaggerUIPlugin = (system: any) => {
   statePlugins?:
-    | {
-        [stateKey: string]: {
+    | Record<
+        string,
+        {
           actions?: Indexable | undefined
           reducers?: Indexable | undefined
           selectors?: Indexable | undefined
           wrapActions?: Indexable | undefined
           wrapSelectors?: Indexable | undefined
         }
-      }
+      >
     | undefined
   components?: Indexable | undefined
   wrapComponents?: Indexable | undefined
@@ -292,6 +290,4 @@ type SwaggerUIPlugin = (system: any) => {
   fn?: Indexable | undefined
 }
 
-interface Indexable {
-  [index: string]: any
-}
+type Indexable = Record<string, any>

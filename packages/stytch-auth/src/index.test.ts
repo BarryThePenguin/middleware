@@ -4,21 +4,21 @@ import { HTTPException } from 'hono/http-exception'
 import type { Mock } from 'vitest'
 import { Consumer, B2B } from '.'
 
-type sessionMock = {
+interface sessionMock {
   authenticate: Mock
   authenticateJwt: Mock
 }
 
-type oauthMock = {
+interface oauthMock {
   introspectTokenLocal: Mock
 }
 
-type b2bSessionMock = {
+interface b2bSessionMock {
   authenticate: Mock
   authenticateJwt: Mock
 }
 
-type b2bIdpMock = {
+interface b2bIdpMock {
   introspectTokenLocal: Mock
 }
 

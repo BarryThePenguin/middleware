@@ -17,14 +17,14 @@ import {
 import type { FetchLike } from '@modelcontextprotocol/sdk/shared/transport.js'
 import type { Context } from 'hono'
 
-export type ProxyEndpoints = {
+export interface ProxyEndpoints {
   authorizationUrl: string
   tokenUrl: string
   revocationUrl?: string
   registrationUrl?: string
 }
 
-export type ProxyOptions = {
+export interface ProxyOptions {
   /**
    * Individual endpoint URLs for proxying specific OAuth operations
    */

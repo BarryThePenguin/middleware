@@ -1,7 +1,7 @@
 import type { EventStore } from '@modelcontextprotocol/sdk/server/streamableHttp.js'
 import type { JSONRPCMessage } from '@modelcontextprotocol/sdk/types.js'
 
-export type MemoryEventStoreOptions = {
+export interface MemoryEventStoreOptions {
   /**
    * The number of streams to store in the memory
    * @default 100
