@@ -27,6 +27,7 @@
     { "path": "packages/medley-router" },
     { "path": "packages/oauth-providers" },
     { "path": "packages/oidc-auth" },
+    { "path": "packages/openapi" },
     { "path": "packages/otel" },
     { "path": "packages/prometheus" },
     { "path": "packages/qwik-city" },

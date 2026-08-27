@@ -1,0 +1,53 @@
+{
+  "name": "@hono/openapi",
+  "version": "0.2.1",
+  "description": "OpenAPI middleware for Hono",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "pnpm -w run build:pkg",
+    "lint": "eslint",
+    "typecheck": "tsc -b tsconfig.json",
+    "test": "vitest"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public",
+    "provenance": true,
+    "exports": {
+      ".": {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.cjs"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/honojs/middleware.git",
+    "directory": "packages/openapi"
+  },
+  "homepage": "https://github.com/honojs/middleware",
+  "peerDependencies": {
+    "@standard-schema/spec": "^1.1.0",
+    "hono": ">=4.0.0"
+  },
+  "dependencies": {
+    "@scalar/openapi-types": "^0.9.3"
+  },
+  "devDependencies": {
+    "hono": "^4.11.5",
+    "tsdown": "^0.22.3",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "valibot": "^1.4.2",
+    "vitest": "^4.1.7"
+  }
+}
